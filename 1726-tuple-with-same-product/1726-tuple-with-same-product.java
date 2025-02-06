@@ -1,21 +1,23 @@
 class Solution {
     public int tupleSameProduct(int[] nums) {
-        HashMap<Integer, List<int[]>> hash = new HashMap<>();
+        HashMap<Integer, Integer> productCount = new HashMap<>();
         int count = 0;
-        for(int i = 0; i < nums.length; i++){
-            for(int j = i + 1; j < nums.length; j++){
-                int product = nums[i] * nums[j]; 
-                hash.putIfAbsent(product,new ArrayList<>());
-                hash.get(product).add(new int[]{nums[i], nums[j]});
+
+        // לולאה כפולה לספירת מכפלות
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                int product = nums[i] * nums[j];
+                productCount.put(product, productCount.getOrDefault(product, 0) + 1);
             }
         }
 
-        for(List<int[]> pairs : hash.values()){
-            int k = pairs.size();
-            if (k > 1) {
-                count += (k * (k - 1)) * 4;
+        // חישוב מספר הרביעיות על סמך הספירה בלבד
+        for (int value : productCount.values()) {
+            if (value > 1) {
+                count += value * (value - 1) * 4;
             }
         }
+
         return count;
     }
 }
