@@ -9,11 +9,16 @@ class Solution(object):
         :type head: Optional[ListNode]
         :rtype: bool
         """
-        slow = fast = head
+        if not head or not head.next:
+            return True
+
+        # Find the middle of the linked list
+        slow, fast = head, head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
 
+        # Reverse the second half of the linked list
         prev = None
         while slow:
             next_node = slow.next
@@ -21,11 +26,13 @@ class Solution(object):
             prev = slow
             slow = next_node
 
+        # Compare the first and second halves
         left, right = head, prev
-        while right:
+        while right:  # Only need to check the second half
             if left.val != right.val:
                 return False
             left, right = left.next, right.next
 
         return True
+
         
