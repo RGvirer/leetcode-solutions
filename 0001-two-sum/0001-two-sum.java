@@ -1,12 +1,13 @@
 class Solution {
     public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) { // j צריך להתחיל מ-i+1
-                if (nums[i] + nums[j] == target) {
-                    return new int[]{i, j};
-                }
+            int complement = target - nums[i];
+            if (map.containsKey(complement)) {
+                return new int[]{map.get(complement), i};
             }
+            map.put(nums[i], i);
         }
-        return new int[]{-1, -1}; // ערך המציין שלא נמצא פתרון
+        return new int[]{-1, -1};   
     }
 }
