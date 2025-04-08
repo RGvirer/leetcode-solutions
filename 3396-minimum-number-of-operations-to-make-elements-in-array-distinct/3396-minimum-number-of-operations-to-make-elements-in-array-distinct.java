@@ -1,10 +1,11 @@
 class Solution {
     public int minimumOperations(int[] nums) {
-        if(isDistinct(nums)){
-            return 0;
+        int operations = 0;
+        while(!isDistinct(nums)){
+            nums = nums.length <= 3 ? new int[0] : Arrays.copyOfRange(nums, 3, nums.length);
+            operations++;
         }
-        int[] trimmed = nums.length <= 3 ? new int[0] : Arrays.copyOfRange(nums, 3, nums.length);
-        return 1 + minimumOperations(trimmed);
+        return operations;
     }
     private boolean isDistinct(int[] nums){
         Set<Integer> set = new HashSet<>();
